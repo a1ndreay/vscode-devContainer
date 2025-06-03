@@ -6,7 +6,7 @@
             "message": "🔄️ Синхронизируем файл '${fileBasename}'. '${file}' '${env.TF_VAR_domain_name}'",
             "messageAfter": "✅ Файл ${fileBasename} синхронизирован.",
             "isAsync": true,
-            "cmd": "echo '{\"type\":\"info\", \"text\":\"🔄️ Синхронизируем файл ${fileBasename}\"}' | nc -U -q 0 ~/.vscode-notify.sock && export TF_VAR_domain_name=$(grep '^TF_VAR_domain_name=' .env | cut -d '=' -f2) && if yc storage s3api put-object --body \"${file}\" --bucket \"$TF_VAR_domain_name\" --key \"${fileBasename}\"; then echo '{\"type\":\"info\", \"text\":\"✅ Файл ${fileBasename} синхронизирован.\"}' | nc -U -q 0 ~/.vscode-notify.sock; else echo '{\"type\":\"error\", \"text\":\"❌ Ошибка при синхронизации файла ${fileBasename}\"}' | nc -U -q 0 ~/.vscode-notify.sock; fi"
+            "cmd": "echo '{\"type\":\"info\", \"text\":\"🔄️ Синхронизируем файл ${fileBasename}\"}' | nc -U -q 0 ~/.vscode-notify.sock && export TF_VAR_domain_name=$(grep '^TF_VAR_domain_name=' .env | cut -d '=' -f2) && if yc storage s3api put-object --body \"${file}\" --bucket \"$TF_VAR_domain_name\" --key \"${fileBasename}\" --content-type text/html; then echo '{\"type\":\"info\", \"text\":\"✅ Файл ${fileBasename} синхронизирован.\"}' | nc -U -q 0 ~/.vscode-notify.sock; else echo '{\"type\":\"error\", \"text\":\"❌ Ошибка при синхронизации файла ${fileBasename}\"}' | nc -U -q 0 ~/.vscode-notify.sock; fi"
           },
         ]
       }
