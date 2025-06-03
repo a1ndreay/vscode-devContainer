@@ -1,0 +1,18 @@
+# Исключаем папку Terraform
+.terraform/
+
+# Файлы ключей (например, key.json, my-key.pem и т.п.)
+*.key
+*.key.*
+*.pem
+*.json
+
+!settings.json 
+!devcontainer.json 
+!not-a-key.json  # (если вдруг нужно оставить какой-то конкретный .json файл)
+
+# Файл окружения
+.env
+
+# Блокировка Terraform
+.terraform.lock.hcl

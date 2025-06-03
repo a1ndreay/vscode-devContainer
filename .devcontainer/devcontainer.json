@@ -1,0 +1,23 @@
+{
+	"name": "Debian Terraform",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"HashiCorp.terraform",
+				"emeraldwalk.runonsave",
+				"a1ndreay.vscode-notify"
+			]
+		}
+	},
+	"remoteUser": "root",
+	"mounts": [
+  		"source=${localWorkspaceFolder},target=/workspaces,type=bind,consistency=consistent"
+	],
+	"postCreateCommand": "bash -c 'source .devcontainer/setup.sh; terraform init -reconfigure -backend-config=\"bucket=tfsate-${TF_VAR_folder_id}\" -backend-config=\"access_key=${TF_VAR_access_key}\" -backend-config=\"secret_key=${TF_VAR_secret_key}\"; terraform apply --auto-approve; '"
+}
